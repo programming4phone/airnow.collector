@@ -4,7 +4,7 @@ The primary purpose of this web service is to provide Air Quality readings for t
 
 Air quality readings are supplied directly from the Environmental Protection Agency by the [Air Now API] (https://docs.airnowapi.org/webservices).
 
-This code base adds to the Air Now API `Current Observations by Zip Code` web service by providing CORS response headers and caching of air quality readings.
+This code base adds to the Air Now API *Current Observations by Zip Code* web service by providing CORS response headers and caching of air quality readings.
 
 ## Air Now API Access
 
@@ -12,7 +12,7 @@ In order to run this web service, you must obtain an Air Now [API Key] (https://
 
 ## Development stack
 
-This project was generated with Java 8, Spring Boot, and Ehcache.
+This project was developed using Java 8, Spring Boot, and Ehcache.
 
 ## Build
 
