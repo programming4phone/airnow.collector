@@ -66,6 +66,7 @@ public class AirNowCollector {
 	 * @param zipCode String 
 	 * @return ResponseEntity containing the CurrentAirQuality object and relevant Http Status code
 	 * @throws com.programming4phone.airnow.collector.AirNowException if a failure occurs invoking the Air Now web service.
+	 * @throws com.programming4phone.airnow.collector.ZipCodeNotFoundException if the Air Now web service does not return a reading for the zip code.
 	 */
 	@CacheResult
 	public CurrentAirQuality get(String zipCode) {

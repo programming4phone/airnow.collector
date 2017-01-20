@@ -6,6 +6,14 @@ Air quality readings are supplied directly from the Environmental Protection Age
 
 This code base adds to the Air Now API *Current Observations by Zip Code* web service by providing CORS response headers and caching of air quality readings.
 
+## Using this web service
+
+This web service is currently deployed on Heroku and can be accessed in a web browser using this link `https://protected-wildwood-44798.herokuapp.com/zipCodeObservation/{zipcode}` and substituting the `{zipcode}` value.
+
+For example, to get the Air Quality readings for zip code 28211, use this link [https://protected-wildwood-44798.herokuapp.com/zipCodeObservation/28211] (https://protected-wildwood-44798.herokuapp.com/zipCodeObservation/28211).
+
+Results for a particular zip code are cached for 1 hour and will only change if the EPA publishes a new reading!
+
 ## Air Now API Access
 
 In order to run this web service, you must obtain an Air Now [API Key] (https://docs.airnowapi.org/faq) and use it to replace the value of the `airnow.key` property in the `application.properties` file.

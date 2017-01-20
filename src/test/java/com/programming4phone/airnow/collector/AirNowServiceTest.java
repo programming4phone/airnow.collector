@@ -47,7 +47,6 @@ public class AirNowServiceTest {
 		entity = restTemplate
 				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/282119", CurrentAirQuality.class);
 		assertTrue(entity.getStatusCode().equals(HttpStatus.BAD_REQUEST));
-
 		
 		entity = restTemplate
 				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/28211", CurrentAirQuality.class);
