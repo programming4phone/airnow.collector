@@ -3,6 +3,7 @@ package com.programming4phone.airnow.collector;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,7 @@ import com.programming4phone.airnow.collector.entity.CurrentAirQuality;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-
-public class AirNowServiceCacheTest {
+public class AirNowServiceIntegrationTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -27,46 +27,36 @@ public class AirNowServiceCacheTest {
 	@Value("${local.server.port}")   
 	int port;
 
-	
+	@Ignore
 	@Test
 	public void test() {
 		
 		/*
-		 * This test hits the live AirNow server. The airnow.key property in  
-		 * the application.properties file must contain a valid API key.
+		 * This test is marked as @Ignore because it hits the live AirNow server. 
+		 * 
+		 * If you want to test against the live server, comment out @Ignore and provide and API key. 
+		 * The airnow.key property in the application.properties file must contain a valid API key.
 		 * View this website for details:
 		 * https://docs.airnowapi.org/faq 
-		 * 
-		 * The console log should show that the cache is being used.
 		 */
 		
 		ResponseEntity<CurrentAirQuality> entity;
-		CurrentAirQuality currentAirQuality;
+		
+		entity = restTemplate
+				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/282AA", CurrentAirQuality.class);
+		assertTrue(entity.getStatusCode().equals(HttpStatus.BAD_REQUEST));
+		
+		entity = restTemplate
+				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/282119", CurrentAirQuality.class);
+		assertTrue(entity.getStatusCode().equals(HttpStatus.BAD_REQUEST));
 		
 		entity = restTemplate
 				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/28211", CurrentAirQuality.class);
 		assertTrue(entity.getStatusCode().equals(HttpStatus.OK));
 		assertTrue(entity.getHeaders().containsKey("Access-Control-Allow-Origin"));
-		currentAirQuality = entity.getBody();
+		CurrentAirQuality currentAirQuality = entity.getBody();
 		assertNotNull(currentAirQuality);
 		assertTrue("Charlotte".equalsIgnoreCase(currentAirQuality.getCity()));
-		
-		entity = restTemplate
-				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/28211", CurrentAirQuality.class);
-		assertTrue(entity.getStatusCode().equals(HttpStatus.OK));
-		assertTrue(entity.getHeaders().containsKey("Access-Control-Allow-Origin"));
-		currentAirQuality = entity.getBody();
-		assertNotNull(currentAirQuality);
-		assertTrue("Charlotte".equalsIgnoreCase(currentAirQuality.getCity()));
-		
-		entity = restTemplate
-				.getForEntity("http://localhost:" + Integer.toString(port) + "/zipCodeObservation/28211", CurrentAirQuality.class);
-		assertTrue(entity.getStatusCode().equals(HttpStatus.OK));
-		assertTrue(entity.getHeaders().containsKey("Access-Control-Allow-Origin"));
-		currentAirQuality = entity.getBody();
-		assertNotNull(currentAirQuality);
-		assertTrue("Charlotte".equalsIgnoreCase(currentAirQuality.getCity()));
-		
 	}
 
 }

@@ -13,7 +13,7 @@ import com.programming4phone.airnow.collector.entity.CurrentAirQuality;
 public class AirNowController {
 	
 	@Autowired
-	AirNowService service;
+	AirQualityTodayService service;
 	
 	@Autowired
 	ZipCodeValidator validator;

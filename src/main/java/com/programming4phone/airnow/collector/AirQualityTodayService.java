@@ -10,18 +10,24 @@ import org.springframework.stereotype.Component;
 import com.programming4phone.airnow.collector.entity.CurrentAirQuality;
 
 @Component
-public class AirNowService implements Function<String, ResponseEntity<CurrentAirQuality>>{
+public class AirQualityTodayService implements Function<String, ResponseEntity<CurrentAirQuality>>{
 
 	
 	@Autowired
-	AirNowCollector collector;
+	AirNowResponseProcessor airNowResponseProcessor;
 	
+	/**
+	 * Process the zip code and create the ResponseResponseEntity which
+	 * will be returned to the invoker of the zipCodeObservation web service.
+	 * @param zipcode String
+	 * @return  ResponseEntity containing a CurrentAirQuality object
+	 */
 	@Override
 	public ResponseEntity<CurrentAirQuality> apply(String zipcode) {
 		/*
 		 * Wrap the results in a ResponseEntity, which is returned by the controller.
 		 */
-		return  new ResponseEntity<CurrentAirQuality>(collector.get(zipcode),HttpStatus.OK);
+		return  new ResponseEntity<CurrentAirQuality>(airNowResponseProcessor.get(zipcode),HttpStatus.OK);
 	}
 
 }
